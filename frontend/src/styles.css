@@ -1,0 +1,333 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+  --bg-main: #090f1c;
+  --bg-card: rgba(12, 23, 42, 0.8);
+  --line: rgba(255, 255, 255, 0.14);
+  --text-main: #e8ecff;
+  --text-muted: #a7b6db;
+  --accent: #6af0e3;
+  --accent-2: #ffc978;
+  --danger: #ff7e8a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text-main);
+  background: radial-gradient(circle at 10% 10%, #17305a 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, #0a6d64 0%, transparent 30%), var(--bg-main);
+  min-height: 100vh;
+}
+
+.page-shell {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 2.4rem 0 3rem;
+  position: relative;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 999px;
+  filter: blur(55px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.orb-one {
+  width: 320px;
+  height: 320px;
+  background: #34f7ea;
+  top: 12%;
+  left: -140px;
+  animation: pulse 6s infinite alternate ease-in-out;
+}
+
+.orb-two {
+  width: 260px;
+  height: 260px;
+  background: #ffbb6c;
+  bottom: 8%;
+  right: -80px;
+  animation: pulse 7s infinite alternate-reverse ease-in-out;
+}
+
+.hero {
+  margin-bottom: 2rem;
+  padding: 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(110deg, rgba(30, 67, 120, 0.45), rgba(12, 23, 42, 0.7));
+  backdrop-filter: blur(6px);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.hero p {
+  max-width: 720px;
+  color: var(--text-muted);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.hero-stats article {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 0.65rem;
+  background: rgba(5, 14, 29, 0.6);
+}
+
+.hero-stats strong {
+  display: block;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+
+.hero-stats span {
+  color: #c8d5fa;
+  font-size: 0.85rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.2rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(6px);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-family: "Chakra Petch", sans-serif;
+  letter-spacing: 0.02rem;
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  margin-top: -0.35rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.95rem;
+}
+
+.consignment-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.consignment-item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.85rem;
+  background: rgba(9, 16, 34, 0.65);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.consignment-item.active,
+.consignment-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.consignment-item h3 {
+  margin: 0 0 0.4rem;
+}
+
+.consignment-item p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  color: #c7d3f3;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(4, 9, 18, 0.8);
+  color: var(--text-main);
+  padding: 0.72rem;
+  font: inherit;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #98a6ca;
+}
+
+.contact-form button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 1rem;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #081229;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.contact-form button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.value-strip,
+.process-strip,
+.contact-strip {
+  margin-top: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.2rem;
+  background: rgba(8, 17, 34, 0.72);
+}
+
+.value-strip,
+.contact-strip {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: 1fr;
+}
+
+.value-strip article,
+.contact-strip article {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.85rem;
+  background: rgba(5, 12, 24, 0.75);
+}
+
+.value-strip h3,
+.contact-strip h3,
+.process-strip h2 {
+  margin: 0 0 0.35rem;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+.value-strip p,
+.contact-strip p {
+  margin: 0;
+  color: #c8d5fa;
+}
+
+.process-steps {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: 1fr;
+}
+
+.process-steps article {
+  border: 1px dashed rgba(106, 240, 227, 0.48);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.process-steps span {
+  font-family: "Chakra Petch", sans-serif;
+  color: var(--accent);
+}
+
+.process-steps p {
+  margin: 0.22rem 0 0;
+  color: #c8d5fa;
+}
+
+.status {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+}
+
+.status-success {
+  color: #8fffcf;
+}
+
+.status-error {
+  color: var(--danger);
+}
+
+.info {
+  color: var(--text-muted);
+}
+
+@media (min-width: 950px) {
+  .content-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .value-strip,
+  .contact-strip,
+  .process-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-strip h2 {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-row {
+    flex-direction: column;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
