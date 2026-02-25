@@ -196,8 +196,28 @@ a {
   line-height: 1.68;
 }
 
+.hero-media {
+  margin: 1.12rem 0 0;
+  border: 1px solid #c5e2eb;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f2fbff;
+}
+
+.hero-media img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.hero-media:hover img {
+  transform: scale(1.02);
+}
+
 .hero-tags {
-  margin-top: 1.4rem;
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
@@ -314,8 +334,24 @@ a {
   box-shadow: 0 15px 30px rgba(8, 89, 113, 0.16);
 }
 
+.division-image {
+  width: 100%;
+  display: block;
+  border: 1px solid #c6e0ea;
+  border-radius: 12px;
+  background: #f3fbff;
+  margin-bottom: 0.72rem;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.division-card:hover .division-image {
+  transform: scale(1.02);
+}
+
 .division-card h3 {
-  margin: 0;
+  margin: 0.02rem 0 0;
   font-family: "Roboto", sans-serif;
   font-size: 1.1rem;
   letter-spacing: -0.01em;
@@ -559,9 +595,25 @@ a {
   transform: translateY(-2px);
 }
 
+.consignment-card:hover .listing-image {
+  transform: scale(1.02);
+}
+
 .consignment-card.active {
   border-color: var(--accent);
   box-shadow: 0 9px 19px rgba(10, 131, 145, 0.2);
+}
+
+.listing-image {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #c9e1ea;
+  background: #f2fbff;
+  margin-bottom: 0.62rem;
+  transition: transform 0.3s ease;
 }
 
 .consignment-tag {
@@ -864,11 +916,14 @@ a {
   .brand-mark,
   .top-nav a,
   .top-cta,
+  .hero-media img,
   .hero-tags span,
   .division-card,
+  .division-image,
   .pillar-card,
   .program-card,
   .panel,
+  .listing-image,
   .text-link,
   .contact-form button,
   .site-footer {

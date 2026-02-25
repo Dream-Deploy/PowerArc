@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchConsignments, submitInquiry } from "./api";
+import heroWholesaleImage from "./assets/hero-wholesale.svg";
+import powerToolsImage from "./assets/division-power-tools.svg";
+import electronicsImage from "./assets/division-electronics.svg";
+import gadgetsImage from "./assets/division-gadgets.svg";
+import clothesImage from "./assets/division-clothes.svg";
+import medicalImage from "./assets/division-medical.svg";
 
 const INITIAL_FORM = {
   fullName: "",
@@ -52,6 +58,8 @@ const WHOLESALE_PILLARS = [
 const PRODUCT_DIVISIONS = [
   {
     name: "Power Tools",
+    image: powerToolsImage,
+    imageAlt: "Power tools wholesale inventory",
     detail:
       "High-turnover tools for hardware chains and reseller channels with dependable replenishment.",
     subdivisions: [
@@ -63,6 +71,8 @@ const PRODUCT_DIVISIONS = [
   },
   {
     name: "Electronics",
+    image: electronicsImage,
+    imageAlt: "Electronics product assortment",
     detail:
       "Consumer and utility electronics curated for volume buyers and regional distributors.",
     subdivisions: [
@@ -74,6 +84,8 @@ const PRODUCT_DIVISIONS = [
   },
   {
     name: "Gadgets",
+    image: gadgetsImage,
+    imageAlt: "Gadgets and accessories collection",
     detail:
       "Fast-moving accessories and trend products ideal for ecommerce storefront rotation.",
     subdivisions: [
@@ -85,12 +97,16 @@ const PRODUCT_DIVISIONS = [
   },
   {
     name: "Clothes",
+    image: clothesImage,
+    imageAlt: "Wholesale clothing and fashion stock",
     detail:
       "Wholesale apparel lines prepared for mixed-size packs and seasonal inventory planning.",
     subdivisions: ["Menswear Basics", "Womenswear Essentials", "Kidswear Packs", "Athleisure Sets"]
   },
   {
     name: "Medical Equipment",
+    image: medicalImage,
+    imageAlt: "Medical equipment inventory and diagnostics",
     detail:
       "Certified medical products and clinic-ready units supported by compliance documents.",
     subdivisions: [
@@ -135,6 +151,17 @@ const PROOF_POINTS = [
   { label: "Order Model", value: "Wholesale B2B" },
   { label: "Inquiry SLA", value: "Within 24h" }
 ];
+
+const CATEGORY_IMAGE_MAP = {
+  "Power Tools": powerToolsImage,
+  Electronics: electronicsImage,
+  "Electronic Devices": electronicsImage,
+  Gadgets: gadgetsImage,
+  Clothes: clothesImage,
+  "Medical Equipment": medicalImage
+};
+
+const getCategoryImage = (category) => CATEGORY_IMAGE_MAP[category] || heroWholesaleImage;
 
 function App() {
   const [consignments, setConsignments] = useState([]);
@@ -286,6 +313,13 @@ function App() {
               electronics, gadgets, clothes, and medical equipment through one inquiry flow and
               scale from carton orders to pallet volumes.
             </p>
+            <figure className="hero-media">
+              <img
+                src={heroWholesaleImage}
+                alt="PowerArc wholesale warehouse operations"
+                decoding="async"
+              />
+            </figure>
             <div className="hero-tags">
               {PRODUCT_DIVISIONS.map((division) => (
                 <span key={division.name}>{division.name}</span>
@@ -318,6 +352,13 @@ function App() {
           <div className="division-grid">
             {PRODUCT_DIVISIONS.map((division) => (
               <article key={division.name} className="division-card">
+                <img
+                  src={division.image}
+                  alt={division.imageAlt}
+                  className="division-image"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <h3>{division.name}</h3>
                 <p>{division.detail}</p>
                 <ul>
@@ -416,11 +457,19 @@ function App() {
                 <div className="consignment-list">
                   {consignments.map((item) => {
                     const isActive = String(item.id) === String(form.consignmentId);
+                    const listingImage = getCategoryImage(item.category);
                     return (
                       <article
                         key={item.id}
                         className={`consignment-card ${isActive ? "active" : ""}`}
                       >
+                        <img
+                          src={listingImage}
+                          alt={`${item.category} listing preview`}
+                          className="listing-image"
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <p className="consignment-tag">{item.category}</p>
                         <h4>{item.title}</h4>
                         <p>{item.description}</p>
