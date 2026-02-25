@@ -12,28 +12,44 @@ public class ConsignmentService {
     public List<Consignment> getConsignments() {
         return List.of(
                 new Consignment(
+                        "PTL-021",
+                        "Industrial Power Tools Batch",
+                        "Power Tools",
+                        "Drills, drivers, grinders, and cutter units packed for mixed-carton and pallet wholesale orders.",
+                        "Hassan Qureshi",
+                        "powertools.owner@powerarc.com"
+                ),
+                new Consignment(
                         "CLTH-001",
                         "Premium Fashion Garments",
                         "Clothes",
-                        "Export-ready seasonal garments with mixed MOQ and GCC-compliant packaging.",
+                        "Export-ready seasonal garments with mixed-size assortments and distributor-friendly MOQ.",
                         "Nora Al Falasi",
-                        "garments.owner@dubaimultitrade.com"
+                        "garments.owner@powerarc.com"
+                ),
+                new Consignment(
+                        "GDT-118",
+                        "Consumer Gadget Collection",
+                        "Gadgets",
+                        "Wearables, desk tech, and mobile accessories for rapid ecommerce catalog refresh.",
+                        "Layla Rahman",
+                        "gadgets.owner@powerarc.com"
                 ),
                 new Consignment(
                         "MED-014",
                         "Certified Clinical Equipment",
                         "Medical Equipment",
-                        "Monitors, infusion systems, and PPE consignments from licensed warehouse stock.",
+                        "Monitors, infusion systems, and PPE consignments with compliance-ready documentation.",
                         "Dr. Omar Saeed",
-                        "medical.owner@dubaimultitrade.com"
+                        "medical.owner@powerarc.com"
                 ),
                 new Consignment(
                         "ELX-032",
-                        "Consumer Electronics Batch",
-                        "Electronic Devices",
-                        "Smart devices and accessories with customs-ready HS documentation.",
+                        "Consumer Electronics Portfolio",
+                        "Electronics",
+                        "Smart devices, appliances, and accessories with customs-ready HS documentation.",
                         "Reem Al Mansoori",
-                        "electronics.owner@dubaimultitrade.com"
+                        "electronics.owner@powerarc.com"
                 )
         );
     }

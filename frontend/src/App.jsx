@@ -10,77 +10,130 @@ const INITIAL_FORM = {
   message: ""
 };
 
-const DELIVERY_PILLARS = [
+const WHOLESALE_PILLARS = [
   {
-    title: "Self-Performing Trade Teams",
-    summary: "Tighter quality control and cleaner communication from kickoff to closeout.",
+    title: "Division-Based Inventory",
+    summary: "Stock is zoned by category so buyers can source complete mixes in one request.",
     points: [
-      "Dedicated scope leaders per discipline",
-      "Field crews aligned to one schedule",
-      "Consistent standards across all trades"
+      "Fast product discovery by division",
+      "Consistent SKU labeling and carton mapping",
+      "Lower picking errors for mixed orders"
     ]
   },
   {
-    title: "Lean Prefabrication Workflow",
-    summary: "Build more in controlled environments and install faster on-site.",
+    title: "Wholesale Pricing Tiers",
+    summary: "Flexible rates for resellers, distributors, and retail chain replenishment.",
     points: [
-      "Fabrication-ready model coordination",
-      "Reduced field congestion and rework",
-      "Predictable sequencing at turnover"
+      "MOQ aligned to carton and pallet levels",
+      "Tiered pricing by volume brackets",
+      "Repeat-order incentives for active accounts"
     ]
   },
   {
-    title: "Real-Time Project Visibility",
-    summary: "Track milestones and decisions across design, procurement, and execution.",
+    title: "Warehouse Dispatch Workflow",
+    summary: "Rapid handling from stock confirmation to shipment release.",
     points: [
-      "Milestone-driven planning cadence",
-      "Transparent issue ownership",
-      "Faster response to trade conflicts"
+      "Daily pick-pack windows",
+      "Batch-level quality checks before dispatch",
+      "Regional and export-ready handover"
     ]
   },
   {
-    title: "Safety And Accountability",
-    summary: "One integrated partner accountable for safe, high-performance delivery.",
+    title: "Account-Managed Sourcing",
+    summary: "Dedicated managers route each inquiry to the right inventory owner.",
     points: [
-      "Unified site safety planning",
-      "Clear escalation channels",
-      "Measured performance reporting"
+      "Single contact for each category portfolio",
+      "Restock alerts and lead-time visibility",
+      "Faster quote turnaround for bulk requests"
     ]
   }
 ];
 
-const TRADE_AREAS = [
+const PRODUCT_DIVISIONS = [
   {
-    name: "Electrical",
-    detail: "Power distribution, lighting controls, and mission-critical electrical infrastructure."
+    name: "Power Tools",
+    detail:
+      "High-turnover tools for hardware chains and reseller channels with dependable replenishment.",
+    subdivisions: [
+      "Drills and Drivers",
+      "Grinders and Sanders",
+      "Cutting and Sawing",
+      "Industrial Batteries and Chargers"
+    ]
   },
   {
-    name: "Mechanical",
-    detail: "HVAC, hydronic, and process systems coordinated with constructability in mind."
+    name: "Electronics",
+    detail:
+      "Consumer and utility electronics curated for volume buyers and regional distributors.",
+    subdivisions: [
+      "Smart Home Devices",
+      "Audio and Entertainment",
+      "Power and Charging",
+      "Small Home Appliances"
+    ]
   },
   {
-    name: "Plumbing",
-    detail: "Domestic water, drainage, and specialty systems integrated into one field plan."
+    name: "Gadgets",
+    detail:
+      "Fast-moving accessories and trend products ideal for ecommerce storefront rotation.",
+    subdivisions: [
+      "Wearables",
+      "Mobile Accessories",
+      "Desk and Travel Tech",
+      "Gaming Add-ons"
+    ]
   },
   {
-    name: "Technology",
-    detail: "Structured cabling and low-voltage pathways designed for long-term adaptability."
+    name: "Clothes",
+    detail:
+      "Wholesale apparel lines prepared for mixed-size packs and seasonal inventory planning.",
+    subdivisions: ["Menswear Basics", "Womenswear Essentials", "Kidswear Packs", "Athleisure Sets"]
   },
   {
-    name: "Virtual Design",
-    detail: "Clash detection, model federation, and phased installation simulations."
+    name: "Medical Equipment",
+    detail:
+      "Certified medical products and clinic-ready units supported by compliance documents.",
+    subdivisions: [
+      "Diagnostic Devices",
+      "Patient Monitoring",
+      "Mobility and Support",
+      "PPE and Clinical Consumables"
+    ]
+  }
+];
+
+const WHOLESALE_PROGRAMS = [
+  {
+    name: "Pallet Program",
+    detail: "Best for importers and regional distributors running predictable monthly volume."
   },
   {
-    name: "Commissioning Support",
-    detail: "Startup planning and validation aligned with owner turnover goals."
+    name: "Mixed-Carton Program",
+    detail: "Blend multiple subdivisions in one order for agile ecommerce restocking."
+  },
+  {
+    name: "Scheduled Replenishment",
+    detail: "Set reorder cadence by division to stabilize stock and reduce rush procurement."
+  },
+  {
+    name: "Private Label Support",
+    detail: "Apply your brand package standards across selected fast-moving product lines."
+  },
+  {
+    name: "Export Documentation",
+    detail: "Commercial paperwork and packing details aligned for cross-border dispatch."
+  },
+  {
+    name: "B2B Account Desk",
+    detail: "Dedicated support team for quotes, substitutions, and portfolio expansion."
   }
 ];
 
 const PROOF_POINTS = [
-  { label: "Delivery Model", value: "Multi-Trade" },
-  { label: "Coverage", value: "Design To Build" },
-  { label: "Coordination", value: "Single Team" },
-  { label: "Inquiry Intake", value: "24 / 7" }
+  { label: "Active Divisions", value: "5" },
+  { label: "Subdivisions", value: "20+" },
+  { label: "Order Model", value: "Wholesale B2B" },
+  { label: "Inquiry SLA", value: "Within 24h" }
 ];
 
 function App() {
@@ -100,7 +153,7 @@ function App() {
         }
         setConsignments(data);
         if (data.length > 0) {
-          setForm((current) => ({ ...current, consignmentId: data[0].id }));
+          setForm((current) => ({ ...current, consignmentId: String(data[0].id) }));
         }
       })
       .catch((error) => {
@@ -121,7 +174,7 @@ function App() {
   }, []);
 
   const selectedConsignment = useMemo(
-    () => consignments.find((item) => item.id === form.consignmentId),
+    () => consignments.find((item) => String(item.id) === String(form.consignmentId)),
     [consignments, form.consignmentId]
   );
 
@@ -148,12 +201,12 @@ function App() {
         phone: form.phone,
         company: form.company,
         message: form.message,
-        consignmentId: form.consignmentId
+        consignmentId: selectedConsignment.id
       });
 
       setStatus({
         type: "success",
-        message: "Inquiry submitted. The consignment owner has received your email."
+        message: "Inquiry submitted. The assigned account manager has received your request."
       });
       setForm((current) => ({
         ...INITIAL_FORM,
@@ -172,45 +225,42 @@ function App() {
         <div className="brand-lockup">
           <span className="brand-mark" aria-hidden="true" />
           <div>
-            <p className="brand-name">PowerArc Construction</p>
-            <p className="brand-subtitle">Integrated Multi-Trade Delivery</p>
+            <p className="brand-name">PowerArc Wholesale</p>
+            <p className="brand-subtitle">Warehouse And Ecommerce Supply</p>
           </div>
         </div>
 
         <nav className="top-nav" aria-label="Primary">
-          <a href="#services">Services</a>
-          <a href="#approach">Approach</a>
+          <a href="#divisions">Divisions</a>
+          <a href="#wholesale">Wholesale Model</a>
           <a href="#inquiry">Inquiry</a>
           <a href="#contact">Contact</a>
         </nav>
 
         <a className="top-cta" href="#inquiry">
-          Start Project
+          Request Pricing
         </a>
       </header>
 
       <main>
         <section className="hero reveal reveal-1">
           <div className="hero-copy">
-            <p className="eyebrow">Integrated Solutions Across Trades</p>
-            <h1>Multi-Trade Construction Built For Complex Projects.</h1>
+            <p className="eyebrow">Warehouse And Ecommerce Supply</p>
+            <h1>Wholesale Divisions Built For Fast Business Replenishment.</h1>
             <p className="hero-lead">
-              From preconstruction planning to final commissioning, PowerArc delivers
-              coordinated electrical, mechanical, plumbing, and technology scope through one
-              accountable team.
+              PowerArc now operates as a category-first wholesale warehouse. Source power tools,
+              electronics, gadgets, clothes, and medical equipment through one inquiry flow and
+              scale from carton orders to pallet volumes.
             </p>
             <div className="hero-tags">
-              <span>Electrical</span>
-              <span>Mechanical</span>
-              <span>Plumbing</span>
-              <span>Technology</span>
-              <span>VDC</span>
-              <span>Commissioning</span>
+              {PRODUCT_DIVISIONS.map((division) => (
+                <span key={division.name}>{division.name}</span>
+              ))}
             </div>
           </div>
 
           <aside className="hero-summary" aria-label="Delivery snapshot">
-            <h2>Project Delivery Snapshot</h2>
+            <h2>Wholesale Snapshot</h2>
             <ul>
               {PROOF_POINTS.map((point) => (
                 <li key={point.label}>
@@ -222,17 +272,41 @@ function App() {
           </aside>
         </section>
 
-        <section className="section-block reveal reveal-2" id="services">
+        <section className="section-block reveal reveal-2" id="divisions">
           <div className="section-heading">
-            <p className="eyebrow">Multi-Trade Contracting Delivers</p>
-            <h2>One Partner, Coordinated Scope, Better Outcomes.</h2>
+            <p className="eyebrow">Product Divisions</p>
+            <h2>Five Divisions With Deep Subdivision Coverage.</h2>
             <p className="section-intro">
-              This layout follows the same storytelling pattern as the reference site while
-              keeping your product flow and backend integrations intact.
+              Each division is structured for wholesale purchasing, allowing you to source
+              specific subdivisions or build mixed orders across categories.
+            </p>
+          </div>
+          <div className="division-grid">
+            {PRODUCT_DIVISIONS.map((division) => (
+              <article key={division.name} className="division-card">
+                <h3>{division.name}</h3>
+                <p>{division.detail}</p>
+                <ul>
+                  {division.subdivisions.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-block section-soft reveal reveal-3" id="wholesale">
+          <div className="section-heading">
+            <p className="eyebrow">Wholesale Operating Model</p>
+            <h2>Built For B2B Buyers, Ecommerce Teams, And Distributors.</h2>
+            <p className="section-intro">
+              We focus on stock visibility, fulfillment speed, and account-managed sourcing so
+              your purchase cycle stays predictable as demand grows.
             </p>
           </div>
           <div className="pillar-grid">
-            {DELIVERY_PILLARS.map((pillar) => (
+            {WHOLESALE_PILLARS.map((pillar) => (
               <article key={pillar.title} className="pillar-card">
                 <h3>{pillar.title}</h3>
                 <p>{pillar.summary}</p>
@@ -246,71 +320,68 @@ function App() {
           </div>
         </section>
 
-        <section className="section-block section-soft reveal reveal-3" id="approach">
+        <section className="section-block reveal reveal-4">
           <div className="section-heading">
-            <p className="eyebrow">Our Approach</p>
-            <h2>Integrated Planning, Trade Expertise, Field Precision.</h2>
-            <p className="section-intro">
-              We coordinate labor, fabrication, and installation as one delivery system so each
-              trade contributes to the same schedule and quality target.
-            </p>
+            <p className="eyebrow">Wholesale Programs</p>
+            <h2>Choose The Purchase Program That Matches Your Volume.</h2>
           </div>
-          <div className="trade-grid">
-            {TRADE_AREAS.map((trade) => (
-              <article key={trade.name} className="trade-card">
-                <span className="trade-badge">Trade Focus</span>
-                <h3>{trade.name}</h3>
-                <p>{trade.detail}</p>
+          <div className="program-grid">
+            {WHOLESALE_PROGRAMS.map((program) => (
+              <article key={program.name} className="program-card">
+                <span className="program-badge">B2B Program</span>
+                <h3>{program.name}</h3>
+                <p>{program.detail}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="highlight-strip reveal reveal-4">
+        <section className="highlight-strip reveal reveal-5">
           <div className="highlight-copy">
-            <p className="eyebrow">Virtual Design And Construction</p>
-            <h2>Coordinate Before You Build.</h2>
+            <p className="eyebrow">Category-Mix Ordering</p>
+            <h2>Source Across Divisions In One Cycle.</h2>
             <p>
-              Our pre-installation coordination process aligns trades early, reduces rework,
-              and improves productivity in the field.
+              Need power tools, gadgets, and medical equipment in the same replenishment run?
+              We route mixed inquiries to the right inventory owners and return one coordinated
+              response.
             </p>
             <a className="text-link" href="#inquiry">
-              Review your project requirements
+              Send your wholesale requirement
             </a>
           </div>
           <div className="highlight-panel">
             <p>
-              Cross-trade model coordination and prefabrication planning convert complex scope
-              into repeatable execution packages.
+              Portfolio-driven sourcing keeps your catalog active while reducing supplier
+              fragmentation and quote delays.
             </p>
           </div>
         </section>
 
-        <section className="inquiry-block reveal reveal-5" id="inquiry">
+        <section className="inquiry-block reveal reveal-6" id="inquiry">
           <div className="section-heading">
-            <p className="eyebrow">Project Inquiry</p>
-            <h2>Tell Us Your Requirement And We Route It To The Right Owner.</h2>
+            <p className="eyebrow">Wholesale Inquiry</p>
+            <h2>Tell Us What You Need And We Route It To The Right Account Manager.</h2>
             <p className="section-intro">
-              This form still uses your Spring Boot API and sends contact details directly to
-              the selected consignment owner.
+              This form still uses your Spring Boot API and sends your request to the selected
+              listing owner.
             </p>
           </div>
 
           <div className="inquiry-grid">
             <article className="panel">
               <div className="panel-head">
-                <h3>Live Consignments</h3>
+                <h3>Live Wholesale Listings</h3>
                 {!loading && <span>{consignments.length} Listings</span>}
               </div>
 
               {loading ? (
                 <p className="info">Loading consignments...</p>
               ) : consignments.length === 0 ? (
-                <p className="info">No consignments available right now.</p>
+                <p className="info">No listings available right now.</p>
               ) : (
                 <div className="consignment-list">
                   {consignments.map((item) => {
-                    const isActive = item.id === form.consignmentId;
+                    const isActive = String(item.id) === String(form.consignmentId);
                     return (
                       <article
                         key={item.id}
@@ -325,7 +396,7 @@ function App() {
                           onClick={() =>
                             setForm((current) => ({
                               ...current,
-                              consignmentId: item.id
+                              consignmentId: String(item.id)
                             }))
                           }
                         >
@@ -339,7 +410,7 @@ function App() {
 
               {selectedConsignment && (
                 <p className="selected-owner">
-                  Assigned owner: <strong>{selectedConsignment.ownerName}</strong>
+                  Assigned account manager: <strong>{selectedConsignment.ownerName}</strong>
                 </p>
               )}
             </article>
@@ -355,7 +426,7 @@ function App() {
                     value={form.fullName}
                     onChange={handleChange}
                     required
-                    placeholder="Ameer Khan"
+                    placeholder="Akin Yusuf"
                   />
                 </label>
 
@@ -367,7 +438,7 @@ function App() {
                     value={form.email}
                     onChange={handleChange}
                     required
-                    placeholder="ameer@company.com"
+                    placeholder="buyer@storefront.com"
                   />
                 </label>
 
@@ -379,7 +450,7 @@ function App() {
                     value={form.phone}
                     onChange={handleChange}
                     required
-                    placeholder="+971 50 123 4567"
+                    placeholder="+1 202 555 0141"
                   />
                 </label>
 
@@ -391,12 +462,12 @@ function App() {
                     value={form.company}
                     onChange={handleChange}
                     required
-                    placeholder="Desert Horizon Trading"
+                    placeholder="Northline Commerce"
                   />
                 </label>
 
                 <label>
-                  Choose Consignment
+                  Choose Listing
                   <select
                     name="consignmentId"
                     value={form.consignmentId}
@@ -404,10 +475,10 @@ function App() {
                     required
                   >
                     <option value="" disabled>
-                      Select consignment
+                      Select listing
                     </option>
                     {consignments.map((item) => (
-                      <option key={item.id} value={item.id}>
+                      <option key={item.id} value={String(item.id)}>
                         {item.title}
                       </option>
                     ))}
@@ -422,12 +493,12 @@ function App() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    placeholder="Mention quantity, destination, and required delivery window."
+                    placeholder="Mention quantities, destination, and preferred shipment window."
                   />
                 </label>
 
                 <button type="submit" disabled={submitting || loading}>
-                  {submitting ? "Sending..." : "Send To Consignment Owner"}
+                  {submitting ? "Sending..." : "Send Wholesale Inquiry"}
                 </button>
 
                 {status.message && (
@@ -445,18 +516,18 @@ function App() {
         </section>
       </main>
 
-      <footer className="site-footer reveal reveal-6" id="contact">
+      <footer className="site-footer reveal reveal-7" id="contact">
         <div>
-          <p className="footer-title">PowerArc Multi-Trade Frontend</p>
+          <p className="footer-title">PowerArc Warehouse And Ecommerce</p>
           <p className="footer-copy">
-            Frontend refreshed to mirror the reference style while preserving your existing
-            consignment inquiry workflow.
+            Product divisions include power tools, electronics, gadgets, clothes, and medical
+            equipment for wholesale purchasing.
           </p>
         </div>
         <div className="footer-contact">
-          <p>Dubai Investment Park, United Arab Emirates</p>
-          <p>sales@powerarc.ae</p>
-          <p>+971 50 000 0000</p>
+          <p>Global Warehouse Desk</p>
+          <p>wholesale@powerarc.com</p>
+          <p>+1 202 555 0108</p>
         </div>
       </footer>
     </div>
