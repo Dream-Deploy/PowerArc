@@ -80,7 +80,7 @@ function App() {
 
       setStatus({
         type: "success",
-        message: "Inquiry submitted. The consignment owner has received your email."
+        message: "Inquiry submitted. Admin has received your email and details are stored."
       });
       setForm((current) => ({
         ...INITIAL_FORM,
@@ -99,7 +99,7 @@ function App() {
       <div className="bg-orb orb-two" aria-hidden="true" />
       <header className="hero">
         <p className="eyebrow">Dubai-Based MultiTrade Network</p>
-        <h1>General multi-trade intelligence with direct owner inquiry flow.</h1>
+        <h1>General multi-trade intelligence with admin-routed inquiry flow.</h1>
         <p>
           A futuristic B2B portal connecting buyers to consignments in clothes, medical equipment,
           and electronic devices across Dubai.
@@ -148,7 +148,7 @@ function App() {
         <section className="card form-card">
           <h2>Send Inquiry</h2>
           <p className="card-subtitle">
-            Customer details are emailed directly to the selected consignment owner.
+            Customer details are stored in PostgreSQL and emailed to admin.
           </p>
 
           <form onSubmit={handleSubmit} className="contact-form">
@@ -232,7 +232,7 @@ function App() {
             </label>
 
             <button type="submit" disabled={submitting || loading}>
-              {submitting ? "Sending..." : "Send to Consignment Owner"}
+              {submitting ? "Sending..." : "Send to Admin"}
             </button>
 
             {status.message && (
@@ -248,7 +248,7 @@ function App() {
         <article>
           <h3>Why Businesses Use This Portal</h3>
           <p>
-            Centralized visibility for diversified consignments with faster owner communication.
+            Centralized visibility for diversified consignments with faster admin communication.
           </p>
         </article>
         <article>
@@ -257,7 +257,7 @@ function App() {
         </article>
         <article>
           <h3>Decision-Ready Data</h3>
-          <p>Each listing includes sector context and direct ownership routing in one flow.</p>
+          <p>Each listing includes sector context with admin-routed inquiry handling.</p>
         </article>
       </section>
 
@@ -278,7 +278,7 @@ function App() {
           </article>
           <article>
             <span>04</span>
-            <p>Email sent to owner directly</p>
+            <p>Email sent to admin inbox</p>
           </article>
         </div>
       </section>

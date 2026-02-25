@@ -21,7 +21,8 @@ docs/       # Team planning docs
 
 - Dynamic consignment catalog (`GET /api/consignments`)
 - Customer inquiry form in React
-- Email integration (`POST /api/inquiries`) to send customer details to selected consignment owner
+- Inquiry persistence in PostgreSQL (`inquiries` table)
+- Email integration (`POST /api/inquiries`) to send customer details to admin (`deploydream@gmail.com` by default)
 - Validation and clear API error messages
 - Dubai-focused branding and futuristic UI style for the POC
 
@@ -41,14 +42,24 @@ Frontend runs at `http://localhost:5173`.
 ```bash
 cd backend
 # PowerShell example
+$env:DB_URL="jdbc:postgresql://localhost:5432/multitrade_poc"
+$env:DB_USERNAME="postgres"
+$env:DB_PASSWORD="postgres"
 $env:MAIL_HOST="smtp.gmail.com"
 $env:MAIL_PORT="587"
 $env:MAIL_USERNAME="your-smtp-user"
 $env:MAIL_PASSWORD="your-smtp-password"
+$env:ADMIN_EMAIL="deploydream@gmail.com"
 mvn spring-boot:run
 ```
 
 If `mvn` is not recognized, install Apache Maven and re-run the command.
+
+Create database before running backend:
+
+```sql
+CREATE DATABASE multitrade_poc;
+```
 
 Backend runs at `http://localhost:8080`.
 
@@ -70,9 +81,18 @@ Backend runs at `http://localhost:8080`.
 }
 ```
 
+Success response sample:
+
+```json
+{
+  "message": "Inquiry submitted and emailed to admin.",
+  "inquiryId": "1"
+}
+```
+
 ## Notes for Production Upgrade
 
-- Move consignments from static list to a database (PostgreSQL)
+- Move consignments from static list to PostgreSQL (inquiries are already persisted in PostgreSQL)
 - Use secure auth for admin/consignment owners
 - Add queue/retry for email delivery
 - Add CRM integration and analytics dashboard
