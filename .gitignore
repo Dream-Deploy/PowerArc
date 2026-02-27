@@ -11,6 +11,8 @@ frontend/.env
 
 # Backend
 backend/target/
+backend/rewrite.yml
+backend/.github/java-upgrade/
 
 # Logs
 *.log
