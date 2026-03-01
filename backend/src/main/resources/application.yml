@@ -16,17 +16,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  mail:
-    host: ${MAIL_HOST:smtp.gmail.com}
-    port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:change-me@example.com}
-    password: ${MAIL_PASSWORD:change-me}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
 
 logging:
   level:
@@ -35,3 +24,7 @@ logging:
 app:
   mail:
     admin-email: ${ADMIN_EMAIL:deploydream@gmail.com}
+    resend:
+      api-key: ${RESEND_API_KEY:}
+      endpoint: ${RESEND_API_URL:https://api.resend.com/emails}
+      from-email: ${MAIL_FROM:onboarding@resend.dev}

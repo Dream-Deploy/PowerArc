@@ -45,13 +45,13 @@ cd backend
 $env:DB_URL="jdbc:postgresql://localhost:5432/multitrade_poc"
 $env:DB_USERNAME="postgres"
 $env:DB_PASSWORD="postgres"
-$env:MAIL_HOST="smtp.gmail.com"
-$env:MAIL_PORT="587"
-$env:MAIL_USERNAME="your-smtp-user"
-$env:MAIL_PASSWORD="your-smtp-password"
+$env:RESEND_API_KEY="your-resend-api-key"
+$env:MAIL_FROM="onboarding@resend.dev"
 $env:ADMIN_EMAIL="deploydream@gmail.com"
 mvn spring-boot:run
 ```
+
+`MAIL_FROM` should be a sender address allowed by your Resend account (use a verified domain for production).
 
 If `mvn` is not recognized, install Apache Maven and re-run the command.
 
